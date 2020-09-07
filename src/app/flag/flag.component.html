@@ -1,0 +1,16 @@
+<li>
+  <div [ngClass]="direction">
+    <div class="flag-wrapper">
+      <span class="flag">{{ project.name }}</span>
+      <span class="time-wrapper"
+        ><span class="time"
+          >{{ project.created_at | date: "yyy" }} -
+          {{ project.pushed_at | date: "yyy" }}</span
+        ></span
+      >
+    </div>
+    <div class="desc">
+      {{ project.description }}
+    </div>
+  </div>
+</li>

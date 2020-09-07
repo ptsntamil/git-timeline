@@ -1,0 +1,55 @@
+<mat-card *ngIf="user">
+  <div class="container">
+    <div>
+      <img [alt]="user.name" [src]="user.avatar_url" />
+      <div class="location" *ngIf="user.location">
+        <img alt="location" src="../../assets/location.svg" />
+        {{ user.location }}
+      </div>
+    </div>
+    <div>
+      <mat-card-title class="name">{{ user.name }}</mat-card-title>
+      <mat-grid-list cols="3">
+        <mat-grid-tile class="repo">
+          <div class="detail">
+            <div>
+              <img
+                title="Public repository"
+                src="../../assets/repo.svg"
+                alt="repository"
+              />
+              <span>{{ user.public_repos }}</span>
+            </div>
+            <div>Repository</div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="followers">
+          <div class="detail">
+            <div>
+              <img
+                alt="Followers"
+                src="../../assets/repo.svg"
+                alt="repository"
+              />
+              <span>{{ user.followers }}</span>
+            </div>
+            <div>Followers</div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="following">
+          <div class="detail">
+            <div>
+              <img
+                alt="Following"
+                src="../../assets/repo.svg"
+                alt="repository"
+              />
+              <span>{{ user.public_repos }}</span>
+            </div>
+            <div>Following</div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+</mat-card>

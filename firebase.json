@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/git-timeline",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

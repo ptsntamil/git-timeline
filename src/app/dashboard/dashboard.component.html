@@ -1,0 +1,32 @@
+<mat-grid-list cols="1">
+  <mat-grid-list cols="3" class="search-container">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile>
+      <form class="search-form" (submit)="username.valid && getUser()">
+        <mat-form-field class="full-width">
+          <mat-label>Github username</mat-label>
+          <input
+            matInput
+            placeholder="Username"
+            [formControl]="username"
+            required
+          />
+          <mat-error
+            *ngIf="username && username.errors && username.errors.required"
+            >Required!</mat-error
+          >
+          <mat-error
+            *ngIf="
+              username.errors && !username.errors.required && username.invalid
+            "
+            >Invalid github username</mat-error
+          >
+        </mat-form-field>
+        <button mat-raised-button color="primary">Submit</button>
+      </form>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
+  <app-user [user]="user"></app-user>
+  <app-timeline *ngIf="projects" [projects]="projects"></app-timeline>
+</mat-grid-list>
