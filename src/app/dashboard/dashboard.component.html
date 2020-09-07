@@ -2,7 +2,7 @@
   <mat-grid-list cols="3" class="search-container">
     <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile>
-      <form class="search-form" (submit)="username.valid && getUser()">
+      <form class="search-form" (submit)="username.valid && onSubmit()">
         <mat-form-field class="full-width">
           <mat-label>Github username</mat-label>
           <input
@@ -27,6 +27,5 @@
     </mat-grid-tile>
     <mat-grid-tile></mat-grid-tile>
   </mat-grid-list>
-  <app-user [user]="user"></app-user>
-  <app-timeline *ngIf="projects" [projects]="projects"></app-timeline>
+  <router-outlet></router-outlet>
 </mat-grid-list>
