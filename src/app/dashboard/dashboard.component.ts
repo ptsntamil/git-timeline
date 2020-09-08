@@ -17,7 +17,11 @@ export class DashboardComponent implements OnInit {
   //username: string = 'tes';
   username = new FormControl('', [Validators.required]);
   ngOnInit(): void {
-    this.username.setValue(this.route.firstChild.snapshot.params['username']);
+    this.username.setValue(
+      this.route.firstChild
+        ? this.route.firstChild.snapshot.params['username']
+        : ''
+    );
   }
   validateUser() {
     this.githubService.getUser(this.username.value).subscribe(

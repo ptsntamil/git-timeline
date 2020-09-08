@@ -21,6 +21,9 @@ export class RepoentryComponent implements OnInit {
 
   ngOnInit(): void {
     this.openDialog();
+    this.route.parent.params.subscribe((param) => {
+      this.githubService.setUsername(param.username);
+    });
     this.route.params.subscribe((param) => {
       this.githubService.setProject(param.repo);
     });

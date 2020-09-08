@@ -11,7 +11,6 @@ export class FlagComponent implements OnInit {
   @Input() direction: string;
   ngOnInit(): void {}
   getProject(projectName: string) {
-    console.log('click');
     this.router.navigate([`${projectName}`], { relativeTo: this.route });
   }
 }
