@@ -5,6 +5,14 @@
   text-transform: capitalize;
   color: $primary;
 }
+.mat-dialog-content {
+  p {
+    margin: 10px;
+  }
+  .mat-chip-list-wrapper {
+    margin: 10px 0px;
+  }
+}
 .counts {
   span {
     width: 37px;

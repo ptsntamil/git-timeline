@@ -13,13 +13,24 @@
     >
     <span title="Watchers"
       ><img src="../../assets/eye.svg" alt="stars" />{{
-        project.watchers_count
+        project.subscribers_count
       }}</span
     >
   </div>
-  <mat-dialog-content>{{ project.description }}</mat-dialog-content>
+  <mat-dialog-content
+    ><p>{{ project.description }}</p>
+    <mat-chip-list aria-label="Languages">
+      <mat-chip
+        color="primary"
+        *ngFor="let language of languages | keyvalue"
+        selected
+        >{{ language.key }}</mat-chip
+      >
+    </mat-chip-list>
+  </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   </mat-dialog-actions>
 </div>
+<mat-progress-bar *ngIf="!project" mode="indeterminate"></mat-progress-bar>

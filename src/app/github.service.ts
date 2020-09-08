@@ -42,6 +42,11 @@ export class GithubService {
       `${this.BASE_URL}/repos/${this.username}/${this.project}`
     );
   }
+  getLanguagesUsed() {
+    return this.http.get(
+      `${this.BASE_URL}/repos/${this.username}/${this.project}/languages`
+    );
+  }
 
   handleError(error) {
     let errorMessage = '';

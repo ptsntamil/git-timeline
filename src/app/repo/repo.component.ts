@@ -14,11 +14,15 @@ export class RepoComponent implements OnInit {
     public githubService: GithubService
   ) {}
   project;
+  languages;
   ngOnInit(): void {
     // this.getProject()
     this.githubService.getProjectDetails().subscribe((data) => {
       console.log(data);
       this.project = data;
+    });
+    this.githubService.getLanguagesUsed().subscribe((data) => {
+      this.languages = data;
     });
   }
   onNoClick() {
