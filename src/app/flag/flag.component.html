@@ -1,6 +1,6 @@
 <li>
   <div [ngClass]="direction">
-    <div class="flag-wrapper">
+    <div class="flag-wrapper" (click)="getProject(project.name)">
       <span class="flag">{{ project.name }}</span>
       <span class="time-wrapper"
         ><span class="time"
@@ -9,7 +9,7 @@
         ></span
       >
     </div>
-    <div class="desc">
+    <div *ngIf="project.description" class="desc">
       {{ project.description }}
     </div>
   </div>

@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { FlagComponent } from './flag/flag.component';
+import { RepoentryComponent } from './repoentry/repoentry.component';
+import { RepoComponent } from './repo/repo.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { FlagComponent } from './flag/flag.component';
     UserComponent,
     TimelineComponent,
     FlagComponent,
+    RepoentryComponent,
+    RepoComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +47,7 @@ import { FlagComponent } from './flag/flag.component';
     FormsModule,
     MatCardModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

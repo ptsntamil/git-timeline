@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
         this.router.navigateByUrl(`/${this.username.value}`);
       },
       (err) => {
+        this.githubService.setUsername('');
         this.username.setErrors({ invalid: true });
       }
     );

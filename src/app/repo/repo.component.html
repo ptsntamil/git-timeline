@@ -1,0 +1,25 @@
+<div *ngIf="project">
+  <h2 mat-dialog-title>{{ project.name }}</h2>
+  <div class="counts">
+    <span title="Stars"
+      ><img src="../../assets/stars.svg" alt="stars" />{{
+        project.stargazers_count
+      }}</span
+    >
+    <span title="Forks"
+      ><img src="../../assets/fork.svg" alt="stars" />{{
+        project.forks_count
+      }}</span
+    >
+    <span title="Watchers"
+      ><img src="../../assets/eye.svg" alt="stars" />{{
+        project.watchers_count
+      }}</span
+    >
+  </div>
+  <mat-dialog-content>{{ project.description }}</mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  </mat-dialog-actions>
+</div>

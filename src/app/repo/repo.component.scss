@@ -1,0 +1,21 @@
+@import "/src/theme.scss";
+.mat-dialog-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: $primary;
+}
+.counts {
+  span {
+    width: 37px;
+    font-size: 17px;
+    font-weight: 600;
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+    img {
+      width: 17px;
+      margin-right: 7px;
+    }
+  }
+}

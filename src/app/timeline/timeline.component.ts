@@ -26,10 +26,12 @@ export class TimelineComponent implements OnInit {
     this.githubService.getUser(this.username).subscribe(
       (data: any) => {
         this.user = data;
+        this.githubService.setUsername(this.username);
         this.getProjects();
       },
       (err) => {
-        this.username.setErrors({ invalid: true });
+        this.githubService.setUsername('');
+        //this.username.setErrors({ invalid: true });
       }
     );
   }

@@ -10,6 +10,22 @@ import { catchError, retry } from 'rxjs/operators';
 export class GithubService {
   constructor(private http: HttpClient) {}
   BASE_URL = 'https://api.github.com';
+  username: string;
+  project: string;
+
+  setProject(project: string) {
+    this.project = project;
+  }
+  getProject() {
+    return this.project;
+  }
+
+  setUsername(username: string) {
+    this.username = username;
+  }
+  getUsername() {
+    return this.username;
+  }
 
   getProjects(username: string) {
     const options = { params: new HttpParams().set('sort', 'created') };
@@ -21,6 +37,12 @@ export class GithubService {
       .get(`${this.BASE_URL}/users/${username}`)
       .pipe(catchError(this.handleError));
   }
+  getProjectDetails() {
+    return this.http.get(
+      `${this.BASE_URL}/repos/${this.username}/${this.project}`
+    );
+  }
+
   handleError(error) {
     let errorMessage = '';
 
