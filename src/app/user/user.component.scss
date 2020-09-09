@@ -9,6 +9,7 @@ mat-card {
         img {
           width: 100%;
           border-radius: 50%;
+          animation: fadeIn 1s linear;
         }
         .location {
           font-size: 16px;
@@ -48,5 +49,13 @@ mat-card {
         }
       }
     }
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

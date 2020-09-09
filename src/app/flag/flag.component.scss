@@ -2,6 +2,7 @@
 
 li {
   padding: 1em 0;
+  opacity: 1;
   &:after {
     content: "";
     display: block;
@@ -14,6 +15,7 @@ li {
     width: 300px;
     float: left;
     text-align: right;
+    animation: slideLeft linear 3s;
     .flag {
       &:after {
         content: "";
@@ -39,6 +41,7 @@ li {
     position: relative;
     width: 300px;
     float: right;
+    animation: slideRight linear 3s;
     .flag {
       &:before {
         left: -40px;
@@ -182,5 +185,34 @@ li {
     .direction-r .desc {
       margin: 1em 4em 0 4em;
     }
+  }
+}
+.slide-left {
+  animation: slideLeft linear 3s;
+}
+.slide-right {
+  animation: slideRight linear 3s;
+}
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-200%);
+  }
+  50% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0%);
+    display: block;
+  }
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(200%);
+  }
+  50% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }

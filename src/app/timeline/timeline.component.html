@@ -1,11 +1,13 @@
 <!-- The Timeline -->
 <app-user [user]="user"></app-user>
-<ul *ngIf="projects" class="timeline">
-  <!-- Item 1 -->
-  <app-flag
-    *ngFor="let project of projects; let i = index"
-    [project]="project"
-    [direction]="i % 2 === 0 ? 'direction-r' : 'direction-l'"
-  ></app-flag>
-</ul>
+<div class="container">
+  <ul *ngIf="projects" class="timeline">
+    <!-- Item 1 -->
+    <app-flag
+      *ngFor="let project of projects; let i = index"
+      [project]="project"
+      [direction]="i % 2 === 0 ? 'direction-r' : 'direction-l'"
+    ></app-flag>
+  </ul>
+</div>
 <router-outlet></router-outlet>

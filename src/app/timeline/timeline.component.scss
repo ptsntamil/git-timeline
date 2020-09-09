@@ -7,6 +7,8 @@
   margin-top: 20px;
   padding: 1em 0;
   list-style-type: none;
+  overflow: hidden;
+  animation: slideDown 2s ease-in-out;
   &::before {
     position: absolute;
     left: 50%;
@@ -64,5 +66,19 @@
   @media screen and (max-width: 660px) {
     width: 100%;
     padding: 4em 0 1em 0;
+  }
+}
+.container {
+  overflow: hidden;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  99% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: unset;
   }
 }
