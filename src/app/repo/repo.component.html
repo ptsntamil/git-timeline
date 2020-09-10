@@ -27,6 +27,7 @@
         >{{ language.key }}</mat-chip
       >
     </mat-chip-list>
+    <app-pie *ngIf="languagesData.length" [data]="languagesData"></app-pie>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>

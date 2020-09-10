@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GithubService } from '../github.service';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../models/User';
+import { Repository } from '../models/Repository';
 
 @Component({
   selector: 'app-timeline',
@@ -12,9 +14,9 @@ export class TimelineComponent implements OnInit {
     private githubService: GithubService,
     private router: ActivatedRoute
   ) {}
-  username;
-  projects;
-  user;
+  username: string;
+  projects: Repository[];
+  user: User;
   ngOnInit(): void {
     this.router.params.subscribe((param) => {
       this.username = param.username;
@@ -24,14 +26,17 @@ export class TimelineComponent implements OnInit {
 
   getUser() {
     this.githubService.getUser(this.username).subscribe(
-      (data: any) => {
+      (data: User) => {
         this.user = data;
         this.githubService.setUsername(this.username);
         this.getProjects();
       },
       (err) => {
         this.githubService.setUsername('');
-        this.user = {};
+        this.user = {
+          name: '',
+          login: '',
+        };
         //this.username.setErrors({ invalid: true });
       }
     );

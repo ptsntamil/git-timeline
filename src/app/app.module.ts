@@ -24,6 +24,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { FlagComponent } from './flag/flag.component';
 import { RepoentryComponent } from './repoentry/repoentry.component';
 import { RepoComponent } from './repo/repo.component';
+import { PieComponent } from './pie/pie.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RepoComponent } from './repo/repo.component';
     FlagComponent,
     RepoentryComponent,
     RepoComponent,
+    PieComponent,
   ],
   imports: [
     BrowserModule,

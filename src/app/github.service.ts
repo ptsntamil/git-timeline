@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { User } from './models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -16,28 +17,28 @@ export class GithubService {
   setProject(project: string) {
     this.project = project;
   }
-  getProject() {
+  getProject(): string {
     return this.project;
   }
 
   setUsername(username: string) {
     this.username = username;
   }
-  getUsername() {
+  getUsername(): string {
     return this.username;
   }
 
-  getProjects(username: string) {
+  getProjects(username: string): Observable<Object> {
     const options = { params: new HttpParams().set('sort', 'created') };
     return this.http.get(`${this.BASE_URL}/users/${username}/repos`, options);
   }
 
-  getUser(username: string) {
+  getUser(username: string): Observable<Object> {
     return this.http
       .get(`${this.BASE_URL}/users/${username}`)
       .pipe(catchError(this.handleError));
   }
-  getProjectDetails() {
+  getProjectDetails(): Observable<Object> {
     return this.http.get(
       `${this.BASE_URL}/repos/${this.username}/${this.project}`
     );
