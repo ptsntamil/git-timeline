@@ -7,76 +7,99 @@ import * as d3 from 'd3';
 })
 export class PieComponent implements OnInit {
   constructor() {}
-  @Input() data;
-  ngOnInit(): void {
-    this.createSvg();
-    this.createColors();
-    this.drawChart();
-  }
-  // private data = [
-  //   { Framework: 'TypeScript', Stars: '21414', Released: '2014' },
-  //   { Framework: 'SCSS', Stars: '9062', Released: '2013' },
-  //   { Framework: 'HTML', Stars: '5226', Released: '2016' },
-  //   { Framework: 'JavaScript', Stars: '1893', Released: '2010' },
-  //   //{ Framework: 'Ember', Stars: '21471', Released: '2011' },
-  // ];
-  // data1 = {
-  //   TypeScript: 21414,
-  //   SCSS: 9062,
-  //   HTML: 5226,
-  //   JavaScript: 1893,
-  // };
-  private svg;
-  private margin = 10;
-  private width = 300;
-  private height = 300;
-  // The radius of the pie chart is half the smallest side
-  private radius = Math.min(this.width, this.height) / 2 - this.margin;
-  private colors;
-  private createSvg(): void {
-    this.svg = d3
-      .select('figure#pie')
-      .append('svg')
-      .attr('width', this.width)
-      .attr('height', this.height)
+  @Input() data: any[];
+  total;
+  @Input() id;
+  radius: number;
+  width = 300;
+  height = 300;
+  private labels: any;
+  private texts: any;
+  // Arcs & pie
+  private arc: any;
+  private pie: any;
+  private slices: any;
+  private color: any;
+  private arcLabel: any;
+  // Drawing containers
+  private svg: any;
+  private mainContainer: any;
+  async ngOnInit() {
+    await this.calculateTotal();
+    this.svg = d3.select(`#${this.id}`).select('svg');
+    this.setSVGDimensions();
+    this.color = d3.scaleOrdinal(d3.schemeCategory10);
+    this.mainContainer = this.svg
       .append('g')
-      .attr(
-        'transform',
-        'translate(' + this.width / 2 + ',' + this.height / 2 + ')'
-      );
+      .attr('transform', `translate(${this.radius},${this.radius})`);
+    this.pie = d3
+      .pie()
+      .sort(null)
+      .value((d: any) => d.count);
+    this.draw();
   }
-  private createColors(): void {
-    this.colors = d3
-      .scaleOrdinal()
-      .domain(this.data.map((d) => d.count.toString()))
-      .range(['#E8EAF6', '#C5CAE9', '#9FA8DA', '#7986CB', '#5C6BC0']);
+  private async calculateTotal() {
+    this.total = await this.data.reduce(
+      (previous, current) => previous + current.count,
+      0
+    );
   }
-  private drawChart(): void {
-    // Compute the position of each group on the pie:
-    const pie = d3.pie<any>().value((d: any) => Number(d.count));
 
-    // Build the pie chart
+  private setSVGDimensions() {
+    this.radius = Math.min(this.width, this.height) / 2;
+    this.svg.attr('width', 2 * this.radius).attr('height', 2 * this.radius);
     this.svg
-      .selectAll('pieces')
-      .data(pie(this.data))
+      .select('g')
+      .attr('transform', 'translate(' + this.radius + ',' + this.radius + ')');
+  }
+
+  private draw() {
+    console.log(this.data);
+    this.setArcs();
+    this.drawSlices();
+    this.drawLabels();
+  }
+
+  private setArcs() {
+    this.arc = d3.arc().outerRadius(this.radius).innerRadius(0);
+    this.arcLabel = d3
+      .arc()
+      .innerRadius(this.radius * 0.8)
+      .outerRadius(this.radius * 0.8);
+  }
+
+  private drawSlices() {
+    this.slices = this.mainContainer
+      .selectAll('path')
+      .remove()
+      .exit()
+      .data(this.pie(this.data))
       .enter()
+      .append('g')
       .append('path')
-      .attr('d', d3.arc().innerRadius(0).outerRadius(this.radius))
-      .attr('fill', (d, i) => this.colors(i));
-    //attr('stroke', '#121926')
-    //.style('stroke-width', '1px');
-
-    // Add labels
-    const labelLocation = d3.arc().innerRadius(100).outerRadius(this.radius);
-
-    this.svg
-      .selectAll('pieces')
-      .data(pie(this.data))
+      .attr('d', this.arc);
+    this.slices.attr('fill', (d, i) => this.color(i));
+  }
+  private drawLabels() {
+    this.texts = this.mainContainer
+      .selectAll('text')
+      .remove()
+      .exit()
+      .data(this.pie(this.data))
       .enter()
       .append('text')
-      .text((d) => d.data.language)
-      .attr('transform', (d) => 'translate(' + labelLocation.centroid(d) + ')')
-      .style('text-anchor', 'middle')
-      .style('font-size', 15);
+      .attr('text-anchor', 'middle')
+      .attr('transform', (d) => `translate(${this.arcLabel.centroid(d)})`)
+      .attr('dy', '0.35em');
+    this.texts
+      .append('tspan')
+      .filter((d) => d.endAngle - d.startAngle > 0.05)
+      .attr('x', 0)
+      .attr('y', 0)
+      .style('fill', 'rgb(255, 255, 255)')
+      .text((d) => {
+        console.log(d.data);
+        return d.data.language;
+      });
   }
 }

@@ -1,5 +1,14 @@
 <!-- The Timeline -->
 <app-user [user]="user"></app-user>
+<mat-grid-list cols="1" rowHeight="500px">
+  <mat-grid-tile
+    ><app-pie
+      *ngIf="languageData.length"
+      id="timeline"
+      [data]="languageData"
+    ></app-pie
+  ></mat-grid-tile>
+</mat-grid-list>
 <div class="container">
   <ul *ngIf="projects" class="timeline">
     <!-- Item 1 -->

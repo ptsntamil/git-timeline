@@ -17,6 +17,8 @@ export class TimelineComponent implements OnInit {
   username: string;
   projects: Repository[];
   user: User;
+  chatData: [];
+  languageData = [];
   ngOnInit(): void {
     this.router.params.subscribe((param) => {
       this.username = param.username;
@@ -42,9 +44,37 @@ export class TimelineComponent implements OnInit {
     );
   }
 
-  getProjects() {
-    this.githubService.getProjects(this.username).subscribe((data: any) => {
-      this.projects = data;
-    });
+  async getProjects() {
+    this.githubService
+      .getProjects(this.username)
+      .subscribe(async (data: Repository[]) => {
+        this.projects = data;
+        this.fetLanguages();
+      });
+  }
+
+  async fetLanguages() {
+    let languages = {},
+      languagesData = {};
+    for (let i = 0; i < this.projects.length; i++) {
+      languages = await this.githubService.get(this.projects[i].languages_url);
+
+      let keys = Object.keys(languages);
+
+      for (let j = 0; j < keys.length; j++) {
+        languagesData[keys[j]] = languagesData[keys[j]]
+          ? languages[keys[j]] + languages[keys[j]]
+          : languages[keys[j]];
+      }
+      if (i === this.projects.length - 1) {
+        let keys = Object.keys(languagesData);
+        for (let k = 0; k < keys.length; k++) {
+          this.languageData.push({
+            language: keys[k],
+            count: languagesData[keys[k]],
+          });
+        }
+      }
+    }
   }
 }

@@ -12,4 +12,5 @@ export interface Repository {
   created_at: Date;
   updated_at: Date;
   pushed_at: Date;
+  languages_url?: string;
 }

@@ -20,18 +20,15 @@ export class RepoComponent implements OnInit {
   ngOnInit(): void {
     // this.getProject()
     this.githubService.getProjectDetails().subscribe((data: Repository) => {
-      console.log(data);
       this.project = data;
     });
     this.githubService.getLanguagesUsed().subscribe((data) => {
       this.languages = data;
-      console.log(Object.keys(this.languages));
       Object.keys(this.languages).forEach((k, i) => {
         this.languagesData.push({
           language: k,
           count: this.languages[k],
         });
-        console.log(this.languagesData);
       });
     });
   }

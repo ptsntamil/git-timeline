@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { User } from './models/User';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +25,10 @@ export class GithubService {
   }
   getUsername(): string {
     return this.username;
+  }
+
+  get(url: string) {
+    return this.http.get(url).toPromise();
   }
 
   getProjects(username: string): Observable<Object> {
