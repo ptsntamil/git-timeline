@@ -1,8 +1,12 @@
 <!-- The Timeline -->
 <app-user [user]="user"></app-user>
 <mat-grid-list cols="1" rowHeight="500px">
-  <mat-grid-tile
-    ><app-pie
+  <mat-grid-tile>
+    <mat-progress-spinner
+      *ngIf="!languageData.length"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+    <app-pie
       *ngIf="languageData.length"
       id="timeline"
       [data]="languageData"

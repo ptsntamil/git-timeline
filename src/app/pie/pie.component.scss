@@ -1,6 +1,10 @@
 @import "/src/theme.scss";
+@import "/src/animations.scss";
 h3 {
   margin-top: 20px;
   font-weight: 500;
   color: $secondary;
+}
+figure {
+  animation: fadeIn 1s ease-in-out;
 }
