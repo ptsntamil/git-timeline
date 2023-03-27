@@ -32,7 +32,7 @@ export class GithubService {
   }
 
   getProjects(username: string): Observable<Object> {
-    const options = { params: new HttpParams().set('sort', 'created') };
+    const options = { params: new HttpParams().set('sort', 'pushed') };
     return this.http.get(`${this.BASE_URL}/users/${username}/repos`, options);
   }
 
