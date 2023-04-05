@@ -49,20 +49,27 @@ export class TimelineComponent implements OnInit {
       .getProjects(this.username)
       .subscribe(async (data: Repository[]) => {
         this.projects = data;
-        this.githubService.getOverallLanguages(this.projects).subscribe(languages => {
-          const langs = languages.reduce((acc, crr):any => {
-            Object.keys(crr).forEach((lan) :any => {
-              if (acc[lan]) {
-                acc[lan] = acc[lan] + crr[lan];
-                return acc;
-              } else {
-                acc[lan] = crr[lan];
-              }
-            })
-          }, {})
-          console.log(langs)
-        })
-        this.fetLanguages();
+        this.githubService
+          .getOverallLanguages(this.projects)
+          .subscribe((languages) => {
+            let total = 0;
+            const langs = languages.reduce((acc, crr):any => {
+              Object.keys(crr).forEach((lan) :any => {
+                if (acc[lan]) {
+                  acc[lan] = acc[lan] + crr[lan];
+                } else {
+                  acc[lan] = crr[lan];
+                }
+                total = total + crr[lan]
+              })
+              return acc;
+            }, {})
+
+            for (let lang in langs) {
+              this.languageData.push({ language: lang, count: langs[lang] })
+            }
+          })
+        //this.fetLanguages();
       });
   }
 
