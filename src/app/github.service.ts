@@ -3,10 +3,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { Repository } from './models/Repository';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class GithubService {
   constructor(private http: HttpClient) {}
   BASE_URL = 'https://api.github.com';
@@ -16,6 +19,7 @@ export class GithubService {
   setProject(project: string) {
     this.project = project;
   }
+
   getProject(): string {
     return this.project;
   }
@@ -30,6 +34,9 @@ export class GithubService {
   get(url: string) {
     return this.http.get(url).toPromise();
   }
+  getWithoutPromise(url: string) {
+    return this.http.get(url).toPromise();
+  }
 
   getProjects(username: string): Observable<Object> {
     const options = { params: new HttpParams().set('sort', 'pushed') };
@@ -41,15 +48,27 @@ export class GithubService {
       .get(`${this.BASE_URL}/users/${username}`)
       .pipe(catchError(this.handleError));
   }
+
   getProjectDetails(): Observable<Object> {
     return this.http.get(
       `${this.BASE_URL}/repos/${this.username}/${this.project}`
     );
   }
+
   getLanguagesUsed() {
     return this.http.get(
       `${this.BASE_URL}/repos/${this.username}/${this.project}/languages`
     );
+  }
+
+  getOverallLanguages(projects:Repository[]): Observable<any> {
+    const urls = projects.map((project: any) => {
+      return this.getWithoutPromise(project.languages_url)
+    })
+
+    console.log(urls)
+    
+    return forkJoin(urls);
   }
 
   handleError(error) {

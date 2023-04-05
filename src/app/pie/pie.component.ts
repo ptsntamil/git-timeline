@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3';
+
 @Component({
   selector: 'app-pie',
   templateUrl: './pie.component.html',
   styleUrls: ['./pie.component.scss'],
 })
+
 export class PieComponent implements OnInit {
   constructor() {}
   @Input() data: any[];
@@ -24,6 +26,7 @@ export class PieComponent implements OnInit {
   // Drawing containers
   private svg: any;
   private mainContainer: any;
+  
   async ngOnInit() {
     await this.calculateTotal();
     this.svg = d3.select(`#${this.id}`).select('svg');

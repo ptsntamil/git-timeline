@@ -28,6 +28,7 @@ export class RepoentryComponent implements OnInit {
       this.githubService.setProject(param.repo);
     });
   }
+  
   openDialog(): void {
     const dialogRef = this.dialog.open(RepoComponent, {
       width: '50%',
